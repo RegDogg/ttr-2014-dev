@@ -17,13 +17,7 @@ class TFHood(ToonHood.ToonHood):
 
     def load(self):
         ToonHood.ToonHood.load(self)
-        self.parentFSM.getStateNamed('TFHood').addChild(self.fsm)
-
-    def handleWheelbarrowCollisionSphereEnter(self, collEntry):
-        if base.localAvatar.numPies >= 0 and base.localAvatar.numPies < 20:
-            # TODO: Handle pies, maybe give TF's event its own class?
-            self.restockSfx.play()
-        
+        self.parentFSM.getStateNamed('TFHood').addChild(self.fsm)     
 
     def enter(self, *args):
         ToonHood.ToonHood.enter(self, *args)
