@@ -1,21 +1,20 @@
+# Embedded file name: toontown.pets.PetBrain
 from pandac.PandaModules import *
 from direct.showbase.PythonUtil import weightedChoice, randFloat, Functor
 from direct.showbase.PythonUtil import list2dict
 from direct.showbase import DirectObject
-from direct.distributed import DistributedObjectAI
+from direct.distributed import DistributedObject, DistributedObjectAI
 from direct.directnotify import DirectNotifyGlobal
 from direct.task import Task
 from direct.fsm import FSM
-from toontown.toon import DistributedToonAI
 from toontown.pets import PetConstants, PetObserve, PetGoal, PetGoalMgr
 from toontown.pets import PetTricks, PetLookerAI
 import random, types
 
-class PetBrain(DirectObject.DirectObject, CPetBrain):
+class PetBrain(DirectObject.DirectObject):
     notify = DirectNotifyGlobal.directNotify.newCategory('PetBrain')
 
     def __init__(self, pet):
-        CPetBrain.__init__(self)
         self.pet = pet
         self.focus = None
         self.started = 0
@@ -145,7 +144,7 @@ class PetBrain(DirectObject.DirectObject, CPetBrain):
                 numLookers = len(self.lookers)
                 if numLookers:
                     dt = tSinceLastLonelinessUpdate
-                    self.pet.lerpMood('loneliness', max(-1.0, dt * -.003 * numLookers))
+                    self.pet.lerpMood('loneliness', max(-1.0, dt * -0.003 * numLookers))
                     if numLookers > 5:
                         self.pet.lerpMood('excitement', min(1.0, dt * 0.001 * numLookers))
         if __dev__:
@@ -226,9 +225,10 @@ class PetBrain(DirectObject.DirectObject, CPetBrain):
             target = target()
         if target is None:
             return 0
-        self.setFocus(target)
-        self.pet.actionFSM.request('Chase', target)
-        return 1
+        else:
+            self.setFocus(target)
+            self.pet.actionFSM.request('Chase', target)
+            return 1
 
     def _wander(self):
         self.clearFocus()
@@ -245,9 +245,10 @@ class PetBrain(DirectObject.DirectObject, CPetBrain):
             chaser = chaser()
         if chaser is None:
             return 0
-        self.setFocus(chaser)
-        self.pet.actionFSM.request('Flee', chaser)
-        return 1
+        else:
+            self.setFocus(chaser)
+            self.pet.actionFSM.request('Flee', chaser)
+            return 1
 
     def _inspectSpot(self, spot = None):
         if spot is None:
@@ -272,9 +273,10 @@ class PetBrain(DirectObject.DirectObject, CPetBrain):
             avatar = avatar()
         if avatar is None:
             return 0
-        self.setFocus(avatar)
-        self.pet.actionFSM.request('Heal', avatar)
-        return 1
+        else:
+            self.setFocus(avatar)
+            self.pet.actionFSM.request('Heal', avatar)
+            return 1
 
     def _startMovie(self):
         self.setFocus(None)
@@ -295,9 +297,9 @@ class PetBrain(DirectObject.DirectObject, CPetBrain):
         dbg = PetBrain.notify.debug
         if action == OA.ATTENDED_START:
             dbg('avatar %s is looking at me' % avId)
-            self.pet.lerpMoods({'boredom': -.1,
+            self.pet.lerpMoods({'boredom': -0.1,
              'excitement': 0.05,
-             'loneliness': -.05})
+             'loneliness': -0.05})
             messenger.send(self.getObserveEventAttendedByAvStart(avId))
         elif action == OA.ATTENDED_STOP:
             dbg('avatar %s is no longer looking at me' % avId)
@@ -336,15 +338,15 @@ class PetBrain(DirectObject.DirectObject, CPetBrain):
         elif action == OA.FEED:
             dbg('avatar %s is feeding me' % avId)
             self.pet.lerpMoods({'affection': 0.35,
-             'anger': -.07,
-             'boredom': -.5,
+             'anger': -0.07,
+             'boredom': -0.5,
              'excitement': 0.5,
-             'fatigue': -.2,
-             'hunger': -.5,
-             'loneliness': -.08,
+             'fatigue': -0.2,
+             'hunger': -0.5,
+             'loneliness': -0.08,
              'playfulness': 0.1,
-             'restlessness': -.05,
-             'sadness': -.2})
+             'restlessness': -0.05,
+             'sadness': -0.2})
             self.updateLastInteractTime(avId)
             avatar = simbase.air.doId2do.get(avId)
             if avatar is not None:
@@ -352,14 +354,14 @@ class PetBrain(DirectObject.DirectObject, CPetBrain):
         elif action == OA.SCRATCH:
             dbg('avatar %s is scratching me' % avId)
             self.pet.lerpMoods({'affection': 0.45,
-             'anger': -.1,
-             'boredom': -.8,
+             'anger': -0.1,
+             'boredom': -0.8,
              'excitement': 0.5,
-             'fatigue': -.25,
-             'loneliness': -.2,
+             'fatigue': -0.25,
+             'loneliness': -0.2,
              'playfulness': 0.1,
-             'restlessness': -.2,
-             'sadness': -.2})
+             'restlessness': -0.2,
+             'sadness': -0.2})
             self.updateLastInteractTime(avId)
             avatar = simbase.air.doId2do.get(avId)
             if avatar is not None:
@@ -375,26 +377,26 @@ class PetBrain(DirectObject.DirectObject, CPetBrain):
     def _handlePhraseObserve(self, observe):
 
         def _handleGettingFriendlyAttention(avId, self = self):
-            self.pet.lerpMoods({'boredom': -.85,
-             'restlessness': -.1,
+            self.pet.lerpMoods({'boredom': -0.85,
+             'restlessness': -0.1,
              'playfulness': 0.2,
-             'loneliness': -.4,
-             'sadness': -.1,
-             'fatigue': -.05,
+             'loneliness': -0.4,
+             'sadness': -0.1,
+             'fatigue': -0.05,
              'excitement': 0.05,
-             'anger': -.05})
+             'anger': -0.05})
             self.updateLastInteractTime(avId)
 
         def _handleComeHere(avId, self = self):
             avatar = simbase.air.doId2do.get(avId)
             if avatar:
-                self._chase(avatar)
+                self.pet.mover.walkToAvatar(avatar)
                 avatar.setHatePets(0)
 
         def _handleFollowMe(avId, self = self):
             avatar = simbase.air.doId2do.get(avId)
             if avatar:
-                self._chase(avatar)
+                self.pet.mover.walkToAvatar(avatar)
                 avatar.setHatePets(0)
 
         def _handleStay(avId, self = self):
@@ -406,12 +408,12 @@ class PetBrain(DirectObject.DirectObject, CPetBrain):
             ownerFactor = 0.5
             if avId == self.pet.ownerId:
                 ownerFactor = 1.0
-            self.pet.lerpMoods({'affection': -.4,
+            self.pet.lerpMoods({'affection': -0.4,
              'anger': 0.4,
-             'boredom': -.3,
+             'boredom': -0.3,
              'confusion': 0.05,
              'fatigue': 0.2,
-             'playfulness': -.1,
+             'playfulness': -0.1,
              'sadness': 0.5 * ownerFactor})
 
         def _handleGoAway(avId, self = self):
@@ -422,15 +424,14 @@ class PetBrain(DirectObject.DirectObject, CPetBrain):
             return
 
         def _handleDoTrick(trickId, avId, self = self):
+            looked = self.lookedAtBy(avId) or config.GetBool('pet-brain-ignore-looked-tricks', True)
             avatar = simbase.air.doId2do.get(avId)
             if avatar:
-                if self.lookedAtBy(avatar.doId):
-                    if not self.goalMgr.hasTrickGoal():
-                        if not self.pet._willDoTrick(trickId):
-                            self.pet.trickFailLogger.addEvent(trickId)
-                            trickId = PetTricks.Tricks.BALK
-                        trickGoal = PetGoal.DoTrick(avatar, trickId)
-                        self.goalMgr.addGoal(trickGoal)
+                if looked:
+                    if not self.pet._willDoTrick(trickId):
+                        self.pet.trickFailLogger.addEvent(trickId)
+                        trickId = PetTricks.Tricks.BALK
+                    self._doTrick(trickId, avatar)
 
         phrase = observe.getPetPhrase()
         avId = observe.getAvId()
@@ -468,14 +469,15 @@ class PetBrain(DirectObject.DirectObject, CPetBrain):
         if av is None:
             PetBrain.notify.warning('%s._addGoalsReAvatar: %s not in doId2do' % (self.pet.doId, avId))
             return
-        if avId not in self.doId2goals:
-            goals = [PetGoal.ChaseAvatar(av), PetGoal.FleeFromAvatar(av)]
-            self.doId2goals[avId] = goals
-            self.lastInteractTime.setdefault(avId, 0)
-        for goal in self.doId2goals[avId]:
-            self.goalMgr.addGoal(goal)
+        else:
+            if avId not in self.doId2goals:
+                goals = [PetGoal.ChaseAvatar(av), PetGoal.FleeFromAvatar(av)]
+                self.doId2goals[avId] = goals
+                self.lastInteractTime.setdefault(avId, 0)
+            for goal in self.doId2goals[avId]:
+                self.goalMgr.addGoal(goal)
 
-        return
+            return
 
     def _removeGoalsReAvatar(self, avId):
         if avId not in self.doId2goals:
@@ -492,37 +494,38 @@ class PetBrain(DirectObject.DirectObject, CPetBrain):
         if av is None:
             PetBrain.notify.warning('_considerBecomeAwareOf: av %s does not exist' % avId)
             return
-        if avId in self.avAwareness:
+        elif avId in self.avAwareness:
             return
+        else:
 
-        def becomeAwareOf(avId, self = self):
-            self.avAwareness[avId] = None
-            self._addGoalsReAvatar(avId)
+            def becomeAwareOf(avId, self = self):
+                self.avAwareness[avId] = None
+                self._addGoalsReAvatar(avId)
+                return
+
+            if len(self.avAwareness) < PetConstants.MaxAvatarAwareness:
+                becomeAwareOf(avId)
+                return
+
+            def calcInterest(avId, self = self):
+                if avId == self.pet.ownerId:
+                    return 100.0
+                return random.random()
+
+            avInterest = calcInterest(avId)
+            minInterest = avInterest
+            minInterestAvId = avId
+            for awAvId in self.avAwareness:
+                i = calcInterest(awAvId)
+                if i < minInterest:
+                    minInterest = i
+                    minInterestAvId = awAvId
+                    break
+
+            if minInterestAvId != avId:
+                self._removeAwarenessOf(minInterestAvId)
+                becomeAwareOf(avId)
             return
-
-        if len(self.avAwareness) < PetConstants.MaxAvatarAwareness:
-            becomeAwareOf(avId)
-            return
-
-        def calcInterest(avId, self = self):
-            if avId == self.pet.ownerId:
-                return 100.0
-            return random.random()
-
-        avInterest = calcInterest(avId)
-        minInterest = avInterest
-        minInterestAvId = avId
-        for awAvId in self.avAwareness:
-            i = calcInterest(awAvId)
-            if i < minInterest:
-                minInterest = i
-                minInterestAvId = awAvId
-                break
-
-        if minInterestAvId != avId:
-            self._removeAwarenessOf(minInterestAvId)
-            becomeAwareOf(avId)
-        return
 
     def _removeAwarenessOf(self, avId):
         if avId in self.avAwareness:
@@ -534,14 +537,15 @@ class PetBrain(DirectObject.DirectObject, CPetBrain):
         if avId in self.nearbyAvs:
             PetBrain.notify.warning('%s already in self.nearbyAvs' % avId)
             return
-        self.nearbyAvs[avId] = None
-        excitement = 0.3
-        if avId == self.pet.ownerId:
-            excitement = 0.7
-        self.pet.lerpMoods({'excitement': 0.7,
-         'loneliness': -.4})
-        self._considerBecomeAwareOf(avId)
-        return
+        else:
+            self.nearbyAvs[avId] = None
+            excitement = 0.3
+            if avId == self.pet.ownerId:
+                excitement = 0.7
+            self.pet.lerpMoods({'excitement': 0.7,
+             'loneliness': -0.4})
+            self._considerBecomeAwareOf(avId)
+            return
 
     def _handleAvatarLeave(self, avId):
         PetBrain.notify.debug('%s._handleAvatarLeave: %s' % (self.pet.doId, avId))

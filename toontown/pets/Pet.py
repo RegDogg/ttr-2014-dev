@@ -6,6 +6,7 @@ from direct.fsm.State import *
 from direct.distributed.ClockDelta import globalClockDelta
 from otp.avatar import Avatar
 from direct.actor import Actor
+from otp.nametag import NametagGroup
 from direct.task import Task
 from toontown.pets import PetDNA
 from PetDNA import HeadParts, EarParts, NoseParts, TailParts, BodyTypes, BodyTextures, AllPetColors, getColors, ColorScales, PetEyeColors, EarTextures, TailTextures, getFootTexture, getEarTexture, GiraffeTail, LeopardTail, PetGenders
