@@ -44,7 +44,7 @@ dc-file config/otp.dc
 
 # Beta Modifications
 # Temporary modifications for unimplemented features go here.
-want-pets #f
+want-pets #t
 want-news-tab #f
 want-news-page #f
 want-accessories #f
@@ -76,8 +76,8 @@ force-holiday-decorations 6
 want-arg-manager #f
 want-mega-invasions #f
 mega-invasion-cog-type tm
-want-toonfest #f
 
 
-# Doomsday is still broken in the CogLanding stage, change to '#t' to enable
+# Custom (Working) Addons!
 want-doomsday #f
+want-toonfest #t
