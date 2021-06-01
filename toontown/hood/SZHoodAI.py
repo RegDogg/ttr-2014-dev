@@ -1,3 +1,4 @@
+# Embedded file name: toontown.hood.SZHoodAI
 from toontown.toonbase import ToontownGlobals
 from HoodAI import HoodAI
 from toontown.building.DistributedBuildingMgrAI import DistributedBuildingMgrAI
@@ -12,29 +13,28 @@ from toontown.toon import NPCToons
 class SZHoodAI(HoodAI):
     """
     AI-side representation of everything in a single safezone neighborhood.
-
+    
     One subclass of this class exists for every neighborhood in the game.
     HoodAIs are responsible for spawning all TreasurePlanners, ponds, 
     and other hood objects, etc.
     """
-    
+
     def __init__(self, air):
         HoodAI.__init__(self, air)
-
         self.safezone = self.HOOD
         self.streets = {}
-        
         self.trolley = None
         self.pond = None
         self.buildingMgr = None
-
         self.createZone()
         self.createStreets()
+        return
 
-    def createZone(self):
+    def createZone(self, genTrolley = True):
         HoodAI.createZone(self)
         self.air.dnaStoreMap[self.HOOD] = self.air.loadDNA(self.air.genDNAFileName(self.HOOD)).generateData()
-        self.createTrolley()
+        if genTrolley:
+            self.createTrolley()
         self.createTreasurePlanner()
         self.buildingMgr = DistributedBuildingMgrAI(self.air, self.HOOD, self.air.dnaStoreMap[self.HOOD], self.air.trophyMgr)
         NPCToons.createNpcsInZone(self.air, self.HOOD)
