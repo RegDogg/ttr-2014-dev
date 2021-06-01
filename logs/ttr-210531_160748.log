@@ -1,0 +1,156 @@
+ToontownStart: Polling for game2 to finish...
+ToontownStart: Game2 is finished.
+ToontownStart: Starting the game.
+ToontownStart: setting default font
+TTLocalizer: Running in language: english
+from toontown.toonbase.TTLocalizerEnglish import *
+OTPLocalizer: Running in language: english
+from otp.otpbase.OTPLocalizerEnglish import *
+ToontownStart: Loading default gui sounds
+ToontownStart: serverVersion:  dev
+{410000001: <toontown.distributed.ToontownDistrict.ToontownDistrict instance at 0x1A48E710>}
+{410000001: <toontown.distributed.ToontownDistrict.ToontownDistrict instance at 0x1A48E710>}
+:ToontownTimeManager(warning): error parsing date string=
+:Actor(warning): no part named head-front*!
+local
+:NewsPageButtonManager(warning): Should not get here. NewsPageButtonManager.exitOff
+:DistributedObject(warning): no loader.getInteractiveProp self.interactiveProp is None
+:DistributedObject(warning): no loader.getInteractiveProp self.interactiveProp is None
+:DistributedObject(warning): no loader.getInteractiveProp self.interactiveProp is None
+:DistributedObject(warning): no loader.getInteractiveProp self.interactiveProp is None
+:DistributedObject(warning): no loader.getInteractiveProp self.interactiveProp is None
+fisherman origin:  render/scene/toontownCentral/2000:safe_zone/fishing_pond_1/npc_fisherman_origin_0
+:Teleport(debug): teleportInDone: walk
+OnscreenText.configure: mayChange == 0
+OnscreenText.configure: mayChange == 0
+OnscreenText.configure: mayChange == 0
+OnscreenText.configure: mayChange == 0
+TIMER startTime 1151
+:Teleport(debug): teleportInDone: walk
+Traceback (most recent call last):
+  File "C:\Panda3D-1.8.1\direct\distributed\ConnectionRepository.py", line 613, in readerPollUntilEmpty
+    while self.readerPollOnce():
+  File "C:\Panda3D-1.8.1\direct\distributed\ConnectionRepository.py", line 620, in readerPollOnce
+    self.handleDatagram(self.private__di)
+  File "otp\distributed\OTPClientRepository.py", line 1910, in handleDatagram
+    self.handler(msgType, di)
+  File "toontown\hood\QuietZoneState.py", line 152, in handleWaitForQuietZoneResponse
+    base.cr.handlePlayGame(msgType, di)
+  File "otp\distributed\OTPClientRepository.py", line 1516, in handlePlayGame
+    self.handleMessageType(msgType, di)
+  File "otp\distributed\OTPClientRepository.py", line 1803, in handleMessageType
+    self.gotInterestDoneMessage(di)
+  File "otp\distributed\OTPClientRepository.py", line 1831, in gotInterestDoneMessage
+    self.handleInterestDoneMessage(di)
+  File "C:\Panda3D-1.8.1\direct\distributed\DoInterestManager.py", line 618, in handleInterestDoneMessage
+    messenger.send(event)
+  File "C:\Panda3D-1.8.1\direct\showbase\Messenger.py", line 397, in send
+    self.__dispatch(acceptorDict, event, sentArgs, foundWatch)
+  File "C:\Panda3D-1.8.1\direct\showbase\Messenger.py", line 482, in __dispatch
+    method (*(extraArgs + sentArgs))
+  File "toontown\distributed\ToontownClientRepository.py", line 1016, in _handleEmuSetZoneDone
+    messenger.send(event)
+  File "C:\Panda3D-1.8.1\direct\showbase\Messenger.py", line 397, in send
+    self.__dispatch(acceptorDict, event, sentArgs, foundWatch)
+  File "C:\Panda3D-1.8.1\direct\showbase\Messenger.py", line 482, in __dispatch
+    method (*(extraArgs + sentArgs))
+  File "toontown\hood\QuietZoneState.py", line 195, in _handleQuietZoneComplete
+    self.fsm.request('waitForZoneRedirect')
+  File "C:\Panda3D-1.8.1\direct\fsm\ClassicFSM.py", line 284, in request
+    exitArgList)
+  File "C:\Panda3D-1.8.1\direct\fsm\ClassicFSM.py", line 231, in __transition
+    self.__enter(aState, enterArgList)
+  File "C:\Panda3D-1.8.1\direct\fsm\ClassicFSM.py", line 217, in __enter
+    aState.enter(argList)
+  File "C:\Panda3D-1.8.1\direct\fsm\State.py", line 203, in enter
+    apply(self.__enterFunc, argList)
+  File "toontown\hood\QuietZoneState.py", line 236, in enterWaitForZoneRedirect
+    self.fsm.request('waitForSetZoneResponse')
+  File "C:\Panda3D-1.8.1\direct\fsm\ClassicFSM.py", line 284, in request
+    exitArgList)
+  File "C:\Panda3D-1.8.1\direct\fsm\ClassicFSM.py", line 231, in __transition
+    self.__enter(aState, enterArgList)
+  File "C:\Panda3D-1.8.1\direct\fsm\ClassicFSM.py", line 217, in __enter
+    aState.enter(argList)
+  File "C:\Panda3D-1.8.1\direct\fsm\State.py", line 203, in enter
+    apply(self.__enterFunc, argList)
+  File "toontown\hood\QuietZoneState.py", line 255, in enterWaitForSetZoneResponse
+    messenger.send(self.getEnterWaitForSetZoneResponseMsg(), [self._requestStatus])
+  File "C:\Panda3D-1.8.1\direct\showbase\Messenger.py", line 397, in send
+    self.__dispatch(acceptorDict, event, sentArgs, foundWatch)
+  File "C:\Panda3D-1.8.1\direct\showbase\Messenger.py", line 482, in __dispatch
+    method (*(extraArgs + sentArgs))
+  File "toontown\distributed\PlayGame.py", line 291, in handleWaitForSetZoneResponse
+    self.hood.load()
+  File "toontown\hood\TFHood.py", line 21, in load
+    self.loadFlippyStand()
+  File "toontown\hood\TFHood.py", line 24, in loadFlippyStand
+    self.flippyStand = Actor.Actor('phase_4/models/events/election_flippyStand-mod', {'idle': 'phase_4/models/events/election_flippyStand-idle'})
+NameError: global name 'Actor' is not defined
+:ToonBase(warning): Handling Python exception.
+Traceback (most recent call last):
+  File "otp\otpbase\OTPBase.py", line 238, in run
+    taskMgr.run()
+  File "C:\Panda3D-1.8.1\direct\task\Task.py", line 502, in run
+    self.step()
+  File "C:\Panda3D-1.8.1\direct\task\Task.py", line 460, in step
+    self.mgr.poll()
+  File "C:\Panda3D-1.8.1\direct\distributed\ConnectionRepository.py", line 613, in readerPollUntilEmpty
+    while self.readerPollOnce():
+  File "C:\Panda3D-1.8.1\direct\distributed\ConnectionRepository.py", line 620, in readerPollOnce
+    self.handleDatagram(self.private__di)
+  File "otp\distributed\OTPClientRepository.py", line 1910, in handleDatagram
+    self.handler(msgType, di)
+  File "toontown\hood\QuietZoneState.py", line 152, in handleWaitForQuietZoneResponse
+    base.cr.handlePlayGame(msgType, di)
+  File "otp\distributed\OTPClientRepository.py", line 1516, in handlePlayGame
+    self.handleMessageType(msgType, di)
+  File "otp\distributed\OTPClientRepository.py", line 1803, in handleMessageType
+    self.gotInterestDoneMessage(di)
+  File "otp\distributed\OTPClientRepository.py", line 1831, in gotInterestDoneMessage
+    self.handleInterestDoneMessage(di)
+  File "C:\Panda3D-1.8.1\direct\distributed\DoInterestManager.py", line 618, in handleInterestDoneMessage
+    messenger.send(event)
+  File "C:\Panda3D-1.8.1\direct\showbase\Messenger.py", line 397, in send
+    self.__dispatch(acceptorDict, event, sentArgs, foundWatch)
+  File "C:\Panda3D-1.8.1\direct\showbase\Messenger.py", line 482, in __dispatch
+    method (*(extraArgs + sentArgs))
+  File "toontown\distributed\ToontownClientRepository.py", line 1016, in _handleEmuSetZoneDone
+    messenger.send(event)
+  File "C:\Panda3D-1.8.1\direct\showbase\Messenger.py", line 397, in send
+    self.__dispatch(acceptorDict, event, sentArgs, foundWatch)
+  File "C:\Panda3D-1.8.1\direct\showbase\Messenger.py", line 482, in __dispatch
+    method (*(extraArgs + sentArgs))
+  File "toontown\hood\QuietZoneState.py", line 195, in _handleQuietZoneComplete
+    self.fsm.request('waitForZoneRedirect')
+  File "C:\Panda3D-1.8.1\direct\fsm\ClassicFSM.py", line 284, in request
+    exitArgList)
+  File "C:\Panda3D-1.8.1\direct\fsm\ClassicFSM.py", line 231, in __transition
+    self.__enter(aState, enterArgList)
+  File "C:\Panda3D-1.8.1\direct\fsm\ClassicFSM.py", line 217, in __enter
+    aState.enter(argList)
+  File "C:\Panda3D-1.8.1\direct\fsm\State.py", line 203, in enter
+    apply(self.__enterFunc, argList)
+  File "toontown\hood\QuietZoneState.py", line 236, in enterWaitForZoneRedirect
+    self.fsm.request('waitForSetZoneResponse')
+  File "C:\Panda3D-1.8.1\direct\fsm\ClassicFSM.py", line 284, in request
+    exitArgList)
+  File "C:\Panda3D-1.8.1\direct\fsm\ClassicFSM.py", line 231, in __transition
+    self.__enter(aState, enterArgList)
+  File "C:\Panda3D-1.8.1\direct\fsm\ClassicFSM.py", line 217, in __enter
+    aState.enter(argList)
+  File "C:\Panda3D-1.8.1\direct\fsm\State.py", line 203, in enter
+    apply(self.__enterFunc, argList)
+  File "toontown\hood\QuietZoneState.py", line 255, in enterWaitForSetZoneResponse
+    messenger.send(self.getEnterWaitForSetZoneResponseMsg(), [self._requestStatus])
+  File "C:\Panda3D-1.8.1\direct\showbase\Messenger.py", line 397, in send
+    self.__dispatch(acceptorDict, event, sentArgs, foundWatch)
+  File "C:\Panda3D-1.8.1\direct\showbase\Messenger.py", line 482, in __dispatch
+    method (*(extraArgs + sentArgs))
+  File "toontown\distributed\PlayGame.py", line 291, in handleWaitForSetZoneResponse
+    self.hood.load()
+  File "toontown\hood\TFHood.py", line 21, in load
+    self.loadFlippyStand()
+  File "toontown\hood\TFHood.py", line 24, in loadFlippyStand
+    self.flippyStand = Actor.Actor('phase_4/models/events/election_flippyStand-mod', {'idle': 'phase_4/models/events/election_flippyStand-idle'})
+NameError: global name 'Actor' is not defined

@@ -1,0 +1,64 @@
+ToontownStart: Polling for game2 to finish...
+ToontownStart: Game2 is finished.
+ToontownStart: Starting the game.
+ToontownStart: setting default font
+TTLocalizer: Running in language: english
+from toontown.toonbase.TTLocalizerEnglish import *
+OTPLocalizer: Running in language: english
+from otp.otpbase.OTPLocalizerEnglish import *
+ToontownStart: Loading default gui sounds
+ToontownStart: serverVersion:  dev
+{410000001: <toontown.distributed.ToontownDistrict.ToontownDistrict instance at 0x1A441A30>}
+{410000001: <toontown.distributed.ToontownDistrict.ToontownDistrict instance at 0x1A441A30>}
+{410000001: <toontown.distributed.ToontownDistrict.ToontownDistrict instance at 0x083D4260>}
+:ToontownTimeManager(warning): error parsing date string=
+:Actor(warning): no part named head-front*!
+local
+:NewsPageButtonManager(warning): Should not get here. NewsPageButtonManager.exitOff
+Traceback (most recent call last):
+  File "C:\Panda3D-1.8.1\direct\distributed\ConnectionRepository.py", line 613, in readerPollUntilEmpty
+    while self.readerPollOnce():
+  File "C:\Panda3D-1.8.1\direct\distributed\ConnectionRepository.py", line 620, in readerPollOnce
+    self.handleDatagram(self.private__di)
+  File "otp\distributed\OTPClientRepository.py", line 1908, in handleDatagram
+    self.handleMessageType(msgType, di)
+  File "otp\distributed\OTPClientRepository.py", line 1803, in handleMessageType
+    self.gotInterestDoneMessage(di)
+  File "otp\distributed\OTPClientRepository.py", line 1829, in gotInterestDoneMessage
+    self.__playBackGenerates(handle)
+  File "otp\distributed\OTPClientRepository.py", line 2013, in __playBackGenerates
+    self.__doGenerate(doId, parentId, zoneId, classId, di, other)
+  File "otp\distributed\OTPClientRepository.py", line 2061, in __doGenerate
+    distObj = self.generateWithRequiredFields(dclass, doId, di, parentId, zoneId)
+  File "C:\Panda3D-1.8.1\direct\distributed\ClientRepositoryBase.py", line 253, in generateWithRequiredFields
+    self.notify.error("Could not create an undefined %s object." % (dclass.getName()))
+  File "C:\Panda3D-1.8.1\direct\directnotify\Notifier.py", line 132, in error
+    raise exception(errorString)
+StandardError: Could not create an undefined DistributedMyTest object.
+:ToonBase(warning): Handling Python exception.
+Traceback (most recent call last):
+  File "otp\otpbase\OTPBase.py", line 238, in run
+    taskMgr.run()
+  File "C:\Panda3D-1.8.1\direct\task\Task.py", line 502, in run
+    self.step()
+  File "C:\Panda3D-1.8.1\direct\task\Task.py", line 460, in step
+    self.mgr.poll()
+  File "C:\Panda3D-1.8.1\direct\distributed\ConnectionRepository.py", line 613, in readerPollUntilEmpty
+    while self.readerPollOnce():
+  File "C:\Panda3D-1.8.1\direct\distributed\ConnectionRepository.py", line 620, in readerPollOnce
+    self.handleDatagram(self.private__di)
+  File "otp\distributed\OTPClientRepository.py", line 1908, in handleDatagram
+    self.handleMessageType(msgType, di)
+  File "otp\distributed\OTPClientRepository.py", line 1803, in handleMessageType
+    self.gotInterestDoneMessage(di)
+  File "otp\distributed\OTPClientRepository.py", line 1829, in gotInterestDoneMessage
+    self.__playBackGenerates(handle)
+  File "otp\distributed\OTPClientRepository.py", line 2013, in __playBackGenerates
+    self.__doGenerate(doId, parentId, zoneId, classId, di, other)
+  File "otp\distributed\OTPClientRepository.py", line 2061, in __doGenerate
+    distObj = self.generateWithRequiredFields(dclass, doId, di, parentId, zoneId)
+  File "C:\Panda3D-1.8.1\direct\distributed\ClientRepositoryBase.py", line 253, in generateWithRequiredFields
+    self.notify.error("Could not create an undefined %s object." % (dclass.getName()))
+  File "C:\Panda3D-1.8.1\direct\directnotify\Notifier.py", line 132, in error
+    raise exception(errorString)
+StandardError: Could not create an undefined DistributedMyTest object.
