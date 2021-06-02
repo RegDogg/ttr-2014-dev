@@ -10,6 +10,9 @@ want-dev #f
 preload-avatars #t
 texture-anisotropic-degree 16
 want-speedhack-fix #t
+# Fix for newer Nvidia GPU's to lower the gamma
+color-bits 8 8 8
+alpha-bits 8
 
 # Resource settings
 vfs-mount resources/phase_3 /phase_3
