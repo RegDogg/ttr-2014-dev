@@ -52,6 +52,10 @@ class LaffMeter(DirectFrame):
                 headModel = gui.find('**/bearhead')
             elif hType == 'pig':
                 headModel = gui.find('**/pighead')
+            elif hType == 'crocodile':
+                headModel = gui.find('**/crocodilehead')
+            elif hType == 'deer':
+                headModel = gui.find('**/deerhead')
             else:
                 raise StandardError('unknown toon species: ', hType)
             self.color = self.style.getHeadColor()

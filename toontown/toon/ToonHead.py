@@ -20,7 +20,9 @@ if not config.GetBool('want-new-anims', 1):
      'f': '/models/char/duck-heads-',
      'p': '/models/char/monkey-heads-',
      'b': '/models/char/bear-heads-',
-     's': '/models/char/pig-heads-'}
+     's': '/models/char/pig-heads-',
+     'x': '/models/char/crocodile-heads-',
+     'z': '/models/char/deer-heads-'}
 else:
     HeadDict = {'dls': '/models/char/tt_a_chr_dgm_shorts_head_',
      'dss': '/models/char/tt_a_chr_dgm_skirt_head_',
@@ -33,7 +35,9 @@ else:
      'f': '/models/char/duck-heads-',
      'p': '/models/char/monkey-heads-',
      'b': '/models/char/bear-heads-',
-     's': '/models/char/pig-heads-'}
+     's': '/models/char/pig-heads-',
+     'x': '/models/char/crocodile-heads-',
+     'z': '/models/char/deer-heads-'}
 EyelashDict = {'d': '/models/char/dog-lashes',
  'c': '/models/char/cat-lashes',
  'h': '/models/char/horse-lashes',
@@ -42,7 +46,9 @@ EyelashDict = {'d': '/models/char/dog-lashes',
  'f': '/models/char/duck-lashes',
  'p': '/models/char/monkey-lashes',
  'b': '/models/char/bear-lashes',
- 's': '/models/char/pig-lashes'}
+ 's': '/models/char/pig-lashes',
+ 'x': '/models/char/crocodile-lashes',
+ 'z': '/models/char/deer-lashes'}
 DogMuzzleDict = {'dls': '/models/char/dogMM_Shorts-headMuzzles-',
  'dss': '/models/char/dogMM_Skirt-headMuzzles-',
  'dsl': '/models/char/dogSS_Shorts-headMuzzles-',
@@ -357,6 +363,38 @@ class ToonHead(Actor.Actor):
             filePrefix = HeadDict['s']
             fix = self.__fixHeadLongLong
             headHeight = 0.75
+        elif headStyle == 'xls':
+            filePrefix = HeadDict['x']
+            fix = self.__fixHeadLongShort
+            headHeight = 0.75
+        elif headStyle == 'xss':
+            filePrefix = HeadDict['x']
+            fix = self.__fixHeadShortShort
+            headHeight = 0.5
+        elif headStyle == 'xsl':
+            filePrefix = HeadDict['x']
+            fix = self.__fixHeadShortLong
+            headHeight = 0.5
+        elif headStyle == 'xll':
+            filePrefix = HeadDict['x']
+            fix = self.__fixHeadLongLong
+            headHeight = 0.75
+        elif headStyle == 'zls':
+            filePrefix = HeadDict['z']
+            fix = self.__fixHeadLongShortDeer
+            headHeight = 0.75
+        elif headStyle == 'zss':
+            filePrefix = HeadDict['z']
+            fix = self.__fixHeadShortShort
+            headHeight = 0.5
+        elif headStyle == 'zsl':
+            filePrefix = HeadDict['z']
+            fix = self.__fixHeadShortLongDeer
+            headHeight = 0.5
+        elif headStyle == 'zll':
+            filePrefix = HeadDict['z']
+            fix = self.__fixHeadLongLongDeer
+            headHeight = 0.75
         else:
             ToonHead.notify.error('unknown head style: %s' % headStyle)
         if len(lods) == 1:
@@ -558,7 +596,7 @@ class ToonHead(Actor.Actor):
         parts = self.findAllMatches('**/head*')
         parts.setColor(style.getHeadColor())
         animalType = style.getAnimal()
-        if animalType == 'cat' or animalType == 'rabbit' or animalType == 'bear' or animalType == 'mouse' or animalType == 'pig':
+        if animalType == 'cat' or animalType == 'rabbit' or animalType == 'bear' or animalType == 'mouse' or animalType == 'pig' or animalType == 'crocodile' or animalType == 'deer':
             parts = self.findAllMatches('**/ear?-*')
             parts.setColor(style.getHeadColor())
 
@@ -777,6 +815,31 @@ class ToonHead(Actor.Actor):
             model.removeNode()
         return
 
+    def __fixHeadLongLongDeer(self, style, lodName = None, copy = 1):
+        animalType = style.getAnimal()
+        headStyle = style.head
+        if lodName == None:
+            searchRoot = self
+        else:
+            searchRoot = self.find('**/' + str(lodName))
+        if animalType != 'duck' and animalType != 'horse':
+            if animalType == 'rabbit':
+                if copy:
+                    searchRoot.find('**/antler-short').removeNode()
+                else:
+                    searchRoot.find('**/antler-short').hide()
+            elif copy:
+                searchRoot.find('**/antler-short').removeNode()
+            else:
+                searchRoot.find('**/antler-short').hide()
+        if animalType == 'deer':
+            muzzleParts = searchRoot.findAllMatches('**/muzzle-short*')
+            for partNum in range(0, muzzleParts.getNumPaths()):
+                if copy:
+                    muzzleParts.getPath(partNum).removeNode()
+                else:
+                    muzzleParts.getPath(partNum).hide()
+
     def __fixHeadLongLong(self, style, lodName = None, copy = 1):
         if lodName == None:
             searchRoot = self
@@ -788,6 +851,33 @@ class ToonHead(Actor.Actor):
                 otherParts.getPath(partNum).removeNode()
             else:
                 otherParts.getPath(partNum).stash()
+
+        return
+
+    def __fixHeadLongShortDeer(self, style, lodName = None, copy = 1):
+        animalType = style.getAnimal()
+        headStyle = style.head
+        if lodName == None:
+            searchRoot = self
+        else:
+            searchRoot = self.find('**/' + str(lodName))
+        if animalType != 'duck' and animalType != 'horse':
+            if animalType == 'rabbit':
+                if copy:
+                    searchRoot.find('**/antler-short').removeNode()
+                else:
+                    searchRoot.find('**/antler-short').hide()
+            elif copy:
+                searchRoot.find('**/antler-short').removeNode()
+            else:
+                searchRoot.find('**/antler-short').hide()
+        if animalType == 'deer':
+            muzzleParts = searchRoot.findAllMatches('**/muzzle-long*')
+            for partNum in range(0, muzzleParts.getNumPaths()):
+                if copy:
+                    muzzleParts.getPath(partNum).removeNode()
+                else:
+                    muzzleParts.getPath(partNum).hide()
 
         return
 
@@ -843,6 +933,42 @@ class ToonHead(Actor.Actor):
                     muzzleParts.getPath(partNum).hide()
 
         return
+
+    def __fixHeadShortLongDeer(self, style, lodName = None, copy = 1):
+        animalType = style.getAnimal()
+        headStyle = style.head
+        if lodName == None:
+            searchRoot = self
+        else:
+            searchRoot = self.find('**/' + str(lodName))
+        if animalType != 'duck' and animalType != 'horse':
+            if animalType == 'rabbit':
+                if copy:
+                    searchRoot.find('**/ears-short').removeNode()
+                else:
+                    searchRoot.find('**/ears-short').hide()
+            elif copy:
+                searchRoot.find('**/antler-long').removeNode()
+            else:
+                searchRoot.find('**/antler-long').hide()
+        if animalType != 'rabbit':
+            muzzleParts = searchRoot.findAllMatches('**/muzzle-short*')
+            for partNum in range(0, muzzleParts.getNumPaths()):
+                if copy:
+                    muzzleParts.getPath(partNum).removeNode()
+                else:
+                    muzzleParts.getPath(partNum).hide()
+
+        else:
+            muzzleParts = searchRoot.findAllMatches('**/muzzle-long*')
+            for partNum in range(0, muzzleParts.getNumPaths()):
+                if copy:
+                    muzzleParts.getPath(partNum).removeNode()
+                else:
+                    muzzleParts.getPath(partNum).hide()
+
+        return
+
 
     def __fixHeadShortLong(self, style, lodName = None, copy = 1):
         animalType = style.getAnimal()

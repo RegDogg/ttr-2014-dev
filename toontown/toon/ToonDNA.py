@@ -14,7 +14,9 @@ toonSpeciesTypes = ['d',
  'f',
  'p',
  'b',
- 's']
+ 's',
+ 'x',
+ 'z']
 toonHeadTypes = ['dls',
  'dss',
  'dsl',
@@ -48,7 +50,15 @@ toonHeadTypes = ['dls',
  'sls',
  'sss',
  'ssl',
- 'sll']
+ 'sll',
+ 'xls',
+ 'xss',
+ 'xsl',
+ 'xll',
+ 'zls',
+ 'zss',
+ 'zsl',
+ 'zll']
 
 def getHeadList(species):
     headList = []
@@ -91,6 +101,10 @@ def getSpeciesName(head):
         speciesName = 'bear'
     elif species == 's':
         speciesName = 'pig'
+    elif species == 'x':
+        speciesName = 'crocodile'
+    elif species == 'z':
+        speciesName = 'deer'
     return speciesName
 
 
@@ -142,7 +156,15 @@ allToonHeadAnimalIndices = [0,
  30,
  31,
  32,
- 33]
+ 33,
+ 34,
+ 35,
+ 36,
+ 37,
+ 38,
+ 39,
+ 40,
+ 41]
 allToonHeadAnimalIndicesTrial = [0,
  1,
  2,
@@ -164,7 +186,15 @@ allToonHeadAnimalIndicesTrial = [0,
  30,
  31,
  32,
- 33]
+ 33,
+ 34,
+ 35,
+ 36,
+ 37,
+ 38,
+ 39,
+ 40,
+ 41]
 toonTorsoTypes = ['ss',
  'ms',
  'ls',
@@ -2765,6 +2795,8 @@ class ToonDNA(AvatarDNA.AvatarDNA):
         return type
 
     def getAnimal(self):
+        if not hasattr(self, 'head'):
+            self.head = ['d']
         if self.head[0] == 'd':
             return 'dog'
         elif self.head[0] == 'c':
@@ -2783,6 +2815,10 @@ class ToonDNA(AvatarDNA.AvatarDNA):
             return 'bear'
         elif self.head[0] == 's':
             return 'pig'
+        elif self.head[0] == 'x':
+            return 'crocodile'
+        elif self.head[0] == 'z':
+            return 'deer'
         else:
             notify.error('unknown headStyle: ', self.head[0])
 

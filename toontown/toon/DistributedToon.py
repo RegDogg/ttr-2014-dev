@@ -420,6 +420,8 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
                 Toon.MonkeyDialogueArray,
                 Toon.BearDialogueArray,
                 Toon.PigDialogueArray,
+                Toon.CrocodileDialogueArray,
+                Toon.DeerDialogueArray,
             ]
             try: return types[self.animalSound]
             except: return Toon.Toon.getDialogueArray(self, *args)
